@@ -19,8 +19,8 @@ builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB"));
 });
 
-//builder.Services.AddScoped<ICategoryRepository, CategoryRepositoryInMemory>();
-//services.AddScoped<ILoaiRepository, LoaiRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepositoryInMemory>();
+//AddScoped<ILoaiRepository, LoaiRepository>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

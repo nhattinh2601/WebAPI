@@ -72,7 +72,7 @@ namespace WebAPI.Repository
             {
                 _category.name = loai.name;
                 _context.SaveChanges();
-            }
+            }    
         }
     }
 }

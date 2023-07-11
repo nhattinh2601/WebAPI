@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
             }
             catch 
             {
-                return BadRequest();
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -49,7 +49,8 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpDelete("{id")]
+
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             try
@@ -63,7 +64,7 @@ namespace WebAPI.Controllers
             }
         }
 
-
+        
         [HttpPost]
         public IActionResult Add(CategoryModel category)
         {
@@ -94,6 +95,6 @@ namespace WebAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
-
+        
     }
 }
