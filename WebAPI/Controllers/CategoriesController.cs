@@ -20,8 +20,15 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var dsLoai = _context.Categories.ToList();
-            return Ok(dsLoai);
+            try
+            {
+                var dsLoai = _context.Categories.ToList();
+                return Ok(dsLoai);
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet("{id}")]
@@ -31,6 +38,22 @@ namespace WebAPI.Controllers
             if (loai != null)
             {
                 return Ok(loai);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteById(int id)
+        {
+            var loai = _context.Categories.SingleOrDefault(lo => lo.category_id == id);
+            if (loai != null)
+            {
+                _context.Categories.Remove(loai);
+                _context.SaveChanges();
+                return StatusCode(StatusCodes.Status200OK);
             }
             else
             {
