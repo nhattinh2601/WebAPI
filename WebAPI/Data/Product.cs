@@ -24,5 +24,11 @@ namespace WebAPI.Data
         [ForeignKey("category_id")]
         public Category category { get; set; }
 
+        public ICollection<OrderDetail> OrderDetails { set; get; }
+        public Product()
+        {
+            OrderDetails = new HashSet<OrderDetail>();
+        }
+
     }
 }
