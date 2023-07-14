@@ -17,6 +17,9 @@ namespace WebAPI.Controllers
             _context = context;
         }
 
+
+
+        #region GetAll
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -30,7 +33,10 @@ namespace WebAPI.Controllers
                 return BadRequest();
             }
         }
+        #endregion
 
+
+        #region GetById
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -44,10 +50,10 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
         }
+        #endregion
 
 
-
-
+        #region Detele
         [HttpDelete("{id}")]
         public IActionResult DeleteById(int id)
         {
@@ -63,8 +69,11 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
         }
+        #endregion
 
 
+
+        #region Create
         [HttpPost]
         public IActionResult CreateNew(CategoryModel model)
         {
@@ -83,7 +92,10 @@ namespace WebAPI.Controllers
                 return BadRequest();
             }
         }
+        #endregion
 
+
+        #region Update
         [HttpPut("{id}")]
         public IActionResult UpdateLoaiById(int id, CategoryModel model)
         {
@@ -99,5 +111,6 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
         }
+        #endregion
     }
 }

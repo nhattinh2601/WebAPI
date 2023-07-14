@@ -20,6 +20,7 @@ builder.Services.AddDbContext<MyDbContext>(options =>
 });
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepositoryInMemory>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 //AddScoped<ILoaiRepository, LoaiRepository>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.

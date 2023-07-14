@@ -13,4 +13,13 @@
     {
         public Guid id { get; set; }
     }
+
+    public class ProductModel
+    {
+        public Guid id { get; set; }
+        public string name { get; set; }  
+        public double price { get; set; }
+
+        public string category_name { get; set; }
+    }
 }
