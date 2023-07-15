@@ -20,6 +20,7 @@ namespace WebAPI.Repository
         public List<ProductModel> GetAll(string search, double? from, double? to, string sortBy, int page=1)
         {
             //var allProducts = _context.Products.AsQueryable();
+            //lấy thông tin của khóa ngoại trong 1 bảng 
             var allProducts = _context.Products.Include(hh => hh.category).AsQueryable();
             #region Filtering
             if (!string.IsNullOrEmpty(search))
