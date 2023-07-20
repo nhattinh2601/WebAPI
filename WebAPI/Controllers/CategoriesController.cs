@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyWebApiApp.Data;
 using WebAPI.Data;
@@ -75,6 +76,7 @@ namespace WebAPI.Controllers
 
         #region Create
         [HttpPost]
+        [Authorize]
         public IActionResult CreateNew(CategoryModel model)
         {
             try

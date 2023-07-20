@@ -57,11 +57,7 @@ namespace WebAPI.Repository
             #region Paging
             allProducts = allProducts.Skip((page - 1) * PAGE_SIZE).Take(PAGE_SIZE);
             #endregion
-
             
-            
-
-
             var result = allProducts.Select(p => new ProductModel
             {
                 id = p.id,
@@ -80,8 +76,9 @@ namespace WebAPI.Repository
                 id = hh.id,
                 name = hh.name,
                 price = hh.price,
-                category_name = hh.category?.name
+                category_name = hh.category?.name,
             }).ToList();
         }
     }
 }
+ 

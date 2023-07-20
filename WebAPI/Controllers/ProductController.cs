@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                var result = _productRepository.GetAll(search:"", from, to, sortBy: "",page);
+                var result = _productRepository.GetAll(search, from, to, sortBy,page);
                 return Ok(result);
             }
             catch
