@@ -17,8 +17,7 @@ namespace WebAPI.Controllers
         {
             _context = context;
         }
-
-
+        
 
         #region GetAll
         [HttpGet]
@@ -71,8 +70,7 @@ namespace WebAPI.Controllers
             }
         }
         #endregion
-
-
+        
 
         #region Create
         [HttpPost]

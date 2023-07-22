@@ -17,6 +17,7 @@
         public string phone { get; set; }
 
         public ICollection<OrderDetail> OrderDetails { get; set; }
+        // them phan khoi tao ham OrderDetail de co Order la co lun OrderDetail de san sang su dung
         public Order()
         {
             OrderDetails = new List<OrderDetail>();

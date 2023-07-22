@@ -12,6 +12,7 @@ namespace WebAPI.Data
         [MaxLength(50)]
         public string name { get; set; }
 
+        
         public virtual ICollection<Product> Products { get; set; }
     }
 }
