@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using authentication_authorization_webapi.DataAccess;
+using authentication_authorization_webapi.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using MyWebApiApp.Data;
+
 using System.Text;
-using WebAPI.Models;
-using WebAPI.Repository;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,17 +16,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
-
 builder.Services.AddDbContext<MyDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB"));
 });
 
-builder.Services.AddScoped<ICategoryRepository, CategoryRepositoryInMemory>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-//AddScoped<ILoaiRepository, LoaiRepository>();
+builder.Services.AddScoped<IUserService, UserServiceImpl>();
+
 
 /*Config Jwt*/
 builder.Services.Configure<AppSetting>(builder.Configuration.GetSection("AppSettings"));
@@ -49,7 +45,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
+
+
 var app = builder.Build();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

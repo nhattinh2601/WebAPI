@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebAPI.Models
+namespace authentication_authorization_webapi.DTO
 {
-    public class LoginModel
+    public class LoginDTO
     {
         [Required]
         [MaxLength(50)]

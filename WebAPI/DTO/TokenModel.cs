@@ -1,4 +1,4 @@
-﻿namespace WebAPI.Models
+﻿namespace authentication_authorization_webapi.DTO
 {
     public class TokenModel
     {

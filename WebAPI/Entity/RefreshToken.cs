@@ -1,8 +1,7 @@
-﻿using Microsoft.Identity.Client;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebAPI.Data
+namespace authentication_authorization_webapi.Entity
 {
     [Table("RefreshToken")]
     public class RefreshToken
@@ -10,9 +9,9 @@ namespace WebAPI.Data
         [Key]
         public Guid Id { get; set; }
 
-        public int UserId { get; set; }
+        public int user_id { get; set; }
 
-        [ForeignKey(nameof(UserId))]
+        [ForeignKey(nameof(user_id))]
         public User User { get; set; }
 
         public string Token { get; set; }
