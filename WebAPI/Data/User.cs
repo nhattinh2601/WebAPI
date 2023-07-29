@@ -19,5 +19,8 @@ namespace WebAPI.Data
         public string fullname { get; set; }
 
         public string email { get; set; }
+
+
+
     }
 }

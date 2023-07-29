@@ -61,8 +61,7 @@ namespace WebAPI.Repository
                     name = category.name
                 };
             }
-            return null;
-            
+            return null;            
         }
 
         public void Update(CategoryVM loai)

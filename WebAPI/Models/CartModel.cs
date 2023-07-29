@@ -1,6 +1,6 @@
 ﻿namespace WebAPI.Models
 {
-    public class CartItem
+    public class CartModel
     {
         public Guid product_id { get; set; }
         public string product_name { get; set; }        

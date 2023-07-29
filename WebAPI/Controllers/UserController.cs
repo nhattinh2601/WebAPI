@@ -72,7 +72,7 @@ namespace WebAPI.Controllers
 
                     
                 }),
-                Expires = DateTime.UtcNow.AddSeconds(20),
+                Expires = DateTime.UtcNow.AddSeconds(2000),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes),SecurityAlgorithms.HmacSha512Signature)
             };
             var token = jwtTokenHandler.CreateToken(tokenDescription);
@@ -82,7 +82,6 @@ namespace WebAPI.Controllers
 
 
             //luu vao db
-
             var refreshTokenEntity = new RefreshToken
             {
                 Id = Guid.NewGuid(),
@@ -93,7 +92,6 @@ namespace WebAPI.Controllers
                 IsRevoked = false,
                 IssueAt = DateTime.UtcNow,
                 ExpiredAt = DateTime.UtcNow.AddHours(1)
-
             };
 
             await _context.AddAsync(refreshTokenEntity);
