@@ -1,6 +1,6 @@
-﻿using WebAPI.Models;
+﻿using WebAPI.dtos;
 
-namespace WebAPI.Repository
+namespace WebAPI.repositories
 {
     public interface ICategoryRepository
     {

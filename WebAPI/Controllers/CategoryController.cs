@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Models;
-using WebAPI.Repository;
+using WebAPI.dtos;
+using WebAPI.repositories;
 
 namespace WebAPI.Controllers
 {

@@ -1,4 +1,4 @@
-﻿namespace WebAPI.Data
+﻿namespace WebAPI.entities
 {
 
     public enum order_status

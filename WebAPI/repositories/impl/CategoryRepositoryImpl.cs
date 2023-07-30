@@ -1,16 +1,17 @@
-﻿using MyWebApiApp.Data;
-using WebAPI.Data;
-using WebAPI.Models;
+﻿using MyWebApiApp.dataAccess;
+using WebAPI.entities;
+using WebAPI.dtos;
+using WebAPI.repositories;
 
-namespace WebAPI.Repository
+namespace WebAPI.repositories.impl
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepositoryImpl : ICategoryRepository
     {
         private readonly MyDbContext _context;
 
-        public CategoryRepository(MyDbContext context) 
+        public CategoryRepositoryImpl(MyDbContext context)
         {
-                _context = context;
+            _context = context;
         }
 
         public CategoryVM Add(CategoryModel loai)
@@ -31,7 +32,7 @@ namespace WebAPI.Repository
 
         public void Delete(int id)
         {
-            var _category = _context.Categories.SingleOrDefault( l => l.category_id == id);
+            var _category = _context.Categories.SingleOrDefault(l => l.category_id == id);
             if (_category != null)
             {
                 _context.Remove(_category);
@@ -51,8 +52,8 @@ namespace WebAPI.Repository
 
         public CategoryVM GetById(int id)
         {
-            var category = _context.Categories.SingleOrDefault( l => l.category_id == id);
-            
+            var category = _context.Categories.SingleOrDefault(l => l.category_id == id);
+
             if (category != null)
             {
                 return new CategoryVM
@@ -61,17 +62,17 @@ namespace WebAPI.Repository
                     name = category.name
                 };
             }
-            return null;            
+            return null;
         }
 
         public void Update(CategoryVM loai)
         {
-            var _category = _context.Categories.SingleOrDefault( l => l.category_id == loai.category_id );
-            if( _category != null)
+            var _category = _context.Categories.SingleOrDefault(l => l.category_id == loai.category_id);
+            if (_category != null)
             {
                 _category.name = loai.name;
                 _context.SaveChanges();
-            }    
+            }
         }
     }
 }

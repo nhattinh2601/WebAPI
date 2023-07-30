@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using MyWebApiApp.Data;
 using System.Text;
-using WebAPI.Models;
-using WebAPI.Repository;
+using WebAPI.helpers;
+using WebAPI.repositories.impl;
+using WebAPI.repositories;
+using MyWebApiApp.dataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,8 +62,8 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-builder.Services.AddScoped<ICategoryRepository, CategoryRepositoryInMemory>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepositoryInMemoryImpl>();
+builder.Services.AddScoped<IProductRepository, ProductRepositoryImpl>();
 //AddScoped<ILoaiRepository, LoaiRepository>();
 
 /*Config Jwt*/

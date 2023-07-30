@@ -1,20 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
-
-using WebAPI.Data;
-using WebAPI.Models;
-using MyWebApiApp.Data;
+using WebAPI.dtos;
+using WebAPI.entities;
+using WebAPI.helpers;
+using MyWebApiApp.dataAccess;
 
 namespace WebAPI.Controllers
 {
@@ -24,7 +19,7 @@ namespace WebAPI.Controllers
     {
         private readonly MyDbContext _context;
         private readonly AppSetting _appSettings;
-        public UserController(MyDbContext context, IOptionsMonitor<AppSetting> optionsMonitor) 
+        public UserController(MyWebApiApp.dataAccess.MyDbContext context, IOptionsMonitor<AppSetting> optionsMonitor) 
         { 
             _context = context;
             _appSettings = optionsMonitor.CurrentValue;

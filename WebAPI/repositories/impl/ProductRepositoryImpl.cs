@@ -1,23 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyWebApiApp.Data;
+using MyWebApiApp.dataAccess;
 using System.Globalization;
-using WebAPI.Models;
+using WebAPI.helpers;
+using WebAPI.dtos;
+using WebAPI.repositories;
 
-namespace WebAPI.Repository
+namespace WebAPI.repositories.impl
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepositoryImpl : IProductRepository
     {
 
         private readonly MyDbContext _context;
         public static int PAGE_SIZE { get; set; } = 2;
-        
 
-        public ProductRepository(MyDbContext context) 
+
+        public ProductRepositoryImpl(MyDbContext context)
         {
             _context = context;
         }
 
-        public List<ProductModel> GetAll(string search, double? from, double? to, string sortBy, int page=1)
+        public List<ProductModel> GetAll(string search, double? from, double? to, string sortBy, int page = 1)
         {
             //var allProducts = _context.Products.AsQueryable();
             //lấy thông tin của khóa ngoại trong 1 bảng 
@@ -69,7 +71,7 @@ namespace WebAPI.Repository
             return result.ToList();
             */
 
-            var result = PaginatedList<WebAPI.Data.Product>.Create(allProducts, page, PAGE_SIZE);
+            var result = PaginatedList<entities.Product>.Create(allProducts, page, PAGE_SIZE);
 
             return result.Select(hh => new ProductModel
             {
@@ -81,4 +83,3 @@ namespace WebAPI.Repository
         }
     }
 }
- 

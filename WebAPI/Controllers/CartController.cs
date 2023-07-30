@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using MyWebApiApp.Data;
-using System.Linq;
-using WebAPI.Data;
-using WebAPI.Models;
+using WebAPI.helpers;
+using WebAPI.dtos;
+using WebAPI.entities;
+using MyWebApiApp.dataAccess;
 
 namespace WebAPI.Controllers
 {

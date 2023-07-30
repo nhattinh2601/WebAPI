@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebAPI.Data
+namespace WebAPI.entities
 {
     [Table("Category")]
     public class Category
@@ -12,7 +12,7 @@ namespace WebAPI.Data
         [MaxLength(50)]
         public string name { get; set; }
 
-        
+
         public virtual ICollection<Product> Products { get; set; }
     }
 }

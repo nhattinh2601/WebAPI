@@ -1,4 +1,4 @@
-﻿namespace WebAPI.Models
+﻿namespace WebAPI.dtos
 {
 
     public class ProductVM

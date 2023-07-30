@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebAPI.Data;
+using WebAPI.entities;
 
-namespace MyWebApiApp.Data
+namespace MyWebApiApp.dataAccess
 {
     public class MyDbContext : DbContext
     {

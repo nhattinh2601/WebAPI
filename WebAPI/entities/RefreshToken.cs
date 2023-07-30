@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebAPI.Data
+namespace WebAPI.entities
 {
     [Table("RefreshToken")]
     public class RefreshToken

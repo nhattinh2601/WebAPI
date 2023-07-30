@@ -1,8 +1,9 @@
-﻿using WebAPI.Models;
+﻿using WebAPI.dtos;
+using WebAPI.repositories;
 
-namespace WebAPI.Repository
+namespace WebAPI.repositories.impl
 {
-    public class CategoryRepositoryInMemory : ICategoryRepository
+    public class CategoryRepositoryInMemoryImpl : ICategoryRepository
     {
         static List<CategoryVM> loais = new List<CategoryVM>
         {
@@ -26,7 +27,7 @@ namespace WebAPI.Repository
         public void Delete(int id)
         {
             var _loai = loais.SingleOrDefault(lo => lo.category_id == id);
-            if(_loai != null)
+            if (_loai != null)
             {
                 loais.Remove(_loai);
             }
@@ -40,12 +41,12 @@ namespace WebAPI.Repository
         public CategoryVM GetById(int id)
         {
             var loai = loais.SingleOrDefault(lo => lo.category_id == id);
-            if(loai != null)
+            if (loai != null)
             {
                 return loai;
             }
             return null;
-            
+
         }
 
         public void Update(CategoryVM loai)
