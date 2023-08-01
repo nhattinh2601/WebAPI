@@ -10,6 +10,7 @@ using WebAPI.dtos;
 using WebAPI.entities;
 using WebAPI.helpers;
 using MyWebApiApp.dataAccess;
+using WebAPI.repositories;
 
 namespace WebAPI.Controllers
 {
@@ -19,10 +20,13 @@ namespace WebAPI.Controllers
     {
         private readonly MyDbContext _context;
         private readonly AppSetting _appSettings;
-        public UserController(MyWebApiApp.dataAccess.MyDbContext context, IOptionsMonitor<AppSetting> optionsMonitor) 
+        private readonly IRoleRepository _roleRepository;
+
+        public UserController(MyWebApiApp.dataAccess.MyDbContext context, IOptionsMonitor<AppSetting> optionsMonitor,IRoleRepository roleRepository) 
         { 
             _context = context;
             _appSettings = optionsMonitor.CurrentValue;
+            _roleRepository = roleRepository;
         }
 
         [HttpPost("Login")]
@@ -64,8 +68,8 @@ namespace WebAPI.Controllers
                     new Claim("Id",user.Id.ToString()),
 
                     //roles
+                    new Claim(ClaimTypes.Role,_roleRepository.GetRoleName(user.RoleId))
 
-                    
                 }),
                 Expires = DateTime.UtcNow.AddSeconds(2000),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes),SecurityAlgorithms.HmacSha512Signature)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.dtos;
 using WebAPI.repositories;
@@ -51,6 +52,7 @@ namespace WebAPI.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
             try
@@ -66,6 +68,7 @@ namespace WebAPI.Controllers
 
         
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Add(CategoryModel category)
         {
             try
@@ -79,6 +82,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "admin")]
         public IActionResult Update(CategoryVM loai)
         {            
             try

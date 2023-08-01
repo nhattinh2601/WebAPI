@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyWebApiApp.dataAccess;
+using System.Data;
 using System.Globalization;
 using WebAPI.dtos;
 using WebAPI.entities;
@@ -12,15 +15,17 @@ namespace WebAPI.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
+        private readonly MyDbContext _context;
 
-        public ProductsController(IProductRepository productRepository)
+        public ProductsController(IProductRepository productRepository, MyDbContext context)
         {
             _productRepository = productRepository;
+            _context = context;
         }
 
 
 
-        [HttpGet]
+        [HttpGet]        
         public IActionResult GetAllProducts(string? search, double? from, double? to, string? sortBy, int page = 1, int page_size = 10)
         {
             try
@@ -48,7 +53,9 @@ namespace WebAPI.Controllers
             }
         }
 
+        
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Add(ProductDto product)
         {
             try
@@ -63,6 +70,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "admin")]
         public IActionResult Update(ProductDto product)
         {
             try
@@ -77,6 +85,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(Guid id)
         {
             try

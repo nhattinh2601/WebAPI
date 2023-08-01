@@ -10,6 +10,7 @@ namespace MyWebApiApp.dataAccess
 
         #region DbSet
         public DbSet<User> Users { get; set; }        
+        public DbSet<Role> Roles { get; set; }        
         public DbSet<CartItem> CartItems { get; set; }                
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Product> Products { get; set; }

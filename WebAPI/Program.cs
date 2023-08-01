@@ -64,6 +64,7 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepositoryImpl>();
 builder.Services.AddScoped<IProductRepository, ProductRepositoryImpl>();
+builder.Services.AddScoped<IRoleRepository, RoleRepositoryImpl>();
 
 
 /*Config Jwt*/

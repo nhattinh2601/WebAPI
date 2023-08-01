@@ -6,9 +6,9 @@ namespace WebAPI.dtos
     {
         [Required]
         [MaxLength(50)]
-        public string username { get; set; }
+        public string username { get; set; } 
         [Required]
         [MaxLength(250)]
-        public string password { get; set; }
+        public string password { get; set; } 
     }
 }

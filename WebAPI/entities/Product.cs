@@ -24,12 +24,7 @@ namespace WebAPI.entities
         public int? CategoryId { get; set; }
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }
-
-        public Product()
-        {
-            // Khởi tạo Category trong hàm khởi tạo
-            Category = new Category();
-        }
+        
         public string GetCategoryName()
         {
             return Category.Name;
