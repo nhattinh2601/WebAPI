@@ -18,21 +18,21 @@ namespace WebAPI.repositories.impl
         {
             var _category = new Category
             {
-                name = loai.name
+                Name = loai.name
             };
             _context.Add(_category);
             _context.SaveChanges();
 
             return new CategoryVM
             {
-                category_id = _category.category_id,
-                name = _category.name
+                id = _category.Id,
+                Name = _category.Name
             };
         }
 
         public void Delete(int id)
         {
-            var _category = _context.Categories.SingleOrDefault(l => l.category_id == id);
+            var _category = _context.Categories.SingleOrDefault(l => l.Id == id);
             if (_category != null)
             {
                 _context.Remove(_category);
@@ -44,22 +44,22 @@ namespace WebAPI.repositories.impl
         {
             var loais = _context.Categories.Select(lo => new CategoryVM
             {
-                category_id = lo.category_id,
-                name = lo.name
+                id = lo.Id,
+                Name = lo.Name
             });
             return loais.ToList();
         }
 
         public CategoryVM GetById(int id)
         {
-            var category = _context.Categories.SingleOrDefault(l => l.category_id == id);
+            var category = _context.Categories.SingleOrDefault(l => l.Id == id);
 
             if (category != null)
             {
                 return new CategoryVM
                 {
-                    category_id = category.category_id,
-                    name = category.name
+                    id = category.Id,
+                    Name = category.Name
                 };
             }
             return null;
@@ -67,10 +67,10 @@ namespace WebAPI.repositories.impl
 
         public void Update(CategoryVM loai)
         {
-            var _category = _context.Categories.SingleOrDefault(l => l.category_id == loai.category_id);
+            var _category = _context.Categories.SingleOrDefault(l => l.Id == loai.id);
             if (_category != null)
             {
-                _category.name = loai.name;
+                _category.Name = loai.Name;
                 _context.SaveChanges();
             }
         }

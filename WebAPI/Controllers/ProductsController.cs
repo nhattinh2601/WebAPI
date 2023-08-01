@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 using WebAPI.dtos;
+using WebAPI.entities;
+using WebAPI.repositories;
 
 namespace WebAPI.Controllers
 {
@@ -8,65 +11,64 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        public static List<Product> products = new List<Product>();
+        private readonly IProductRepository _productRepository;
+
+        public ProductsController(IProductRepository productRepository)
+        {
+            _productRepository = productRepository;
+        }
+
+
 
         [HttpGet]
-        public IActionResult getAll()
-        {
-            return Ok(products);
-        }
-
-        [HttpPost]
-        public IActionResult create(Product productDTO)
-        {
-            var product = new Product
-            {
-                id = Guid.NewGuid(),
-                name = productDTO.name,
-                price = productDTO.price
-            };
-            products.Add(product);
-            return Ok(new { 
-                Success = true,
-                Data = product
-            });
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult get(string id)
+        public IActionResult GetAllProducts(string? search, double? from, double? to, string? sortBy, int page = 1, int page_size = 10)
         {
             try
             {
-                var product = products.SingleOrDefault( p => p.id == Guid.Parse(id));
-                if (product == null)
-                {
-                    return NotFound();
-                }
-                return Ok(product);
-            }catch 
+                var result = _productRepository.GetAll(search, from, to, sortBy, page, page_size);
+                return Ok(result);
+            }
+            catch
             {
                 return BadRequest();
             }
-
-            
         }
 
-        
-        [HttpPut("{id}")]
-        public IActionResult update(string id,Product productDTO)
+        [HttpGet("{id}")]
+        public IActionResult GetById(Guid id)
         {
             try
             {
-                var product = products.SingleOrDefault(p => p.id == Guid.Parse(id));
-                if (product == null)
-                {
-                    return NotFound();
-                }
-                products.Add(product);
-                return Ok(new
-                {
-                    Success = true
-                });
+                var result = _productRepository.GetById(id);
+                return Ok(result);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Add(ProductDto product)
+        {
+            try
+            {
+                _productRepository.Add(product);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut]
+        public IActionResult Update(ProductDto product)
+        {
+            try
+            {
+                _productRepository.Update(product);
+                return Ok();
             }
             catch
             {
@@ -75,25 +77,33 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult delete(string id)
+        public IActionResult Delete(Guid id)
         {
             try
             {
-                var product = products.SingleOrDefault(p => p.id == Guid.Parse(id));
-                if (product == null)
-                {
-                    return NotFound();
-                }
-                products.Remove(product);
-                return Ok(new
-                {
-                    Success = true
-                });
+                _productRepository.Delete(id);
+                return Ok();
             }
             catch
             {
                 return BadRequest();
             }
         }
+
+
+        [HttpGet("categoryProduct/{id}")]
+        public IActionResult classifyProductByCategory(int id)
+        {
+            try
+            {
+                var _products = _productRepository.classifyProductByCategory(id);
+                return Ok(_products);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

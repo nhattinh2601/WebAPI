@@ -11,7 +11,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CartController : ControllerBase
     {
-        private readonly MyDbContext _context;
+        /*private readonly MyDbContext _context;
 
         public CartController(MyDbContext context)
         {
@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        /*
+        *//*
          var identity = HttpContext.User.Identity as ClaimsIdentity;
             var userId = identity.FindFirst("Id")?.Value;
             return Ok(userId); 
@@ -46,14 +46,14 @@ namespace WebAPI.Controllers
 
         -khi user bam them gio hang -> mac dinh la them 1, khi nguoi dung bam vao cho do va them voi so luong
         -khi user vao trong trang gio hang va dieu chinh lai mac dinh so luong la bao nhieu 
-         */
+         *//*
 
 
         [HttpPost("addToCart")]
         [Authorize]
         public IActionResult AddToCartUser(Guid id, int SoLuong)
         {
-            var item = _context.Cart.Where(c => c.product_id == id).FirstOrDefault();            
+            var item = _context.CartItems.Where(c => c.product_id == id).FirstOrDefault();            
 
             var myCart = Carts;
             
@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             if (item == null)
             {
                 var hangHoa = _context.Products.SingleOrDefault(p => p.id == id);
-                var _cartitem = new Cart
+                var _cartitem = new CartItem
                 {                    
                     product_id = id,
                     product_name = hangHoa.name,
@@ -159,6 +159,6 @@ namespace WebAPI.Controllers
             HttpContext.Session.Set("GioHang", myCart);
 
             return Ok();
-        }
+        }*/
     }
 }

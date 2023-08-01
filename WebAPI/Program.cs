@@ -62,9 +62,9 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-builder.Services.AddScoped<ICategoryRepository, CategoryRepositoryInMemoryImpl>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepositoryImpl>();
 builder.Services.AddScoped<IProductRepository, ProductRepositoryImpl>();
-//AddScoped<ILoaiRepository, LoaiRepository>();
+
 
 /*Config Jwt*/
 builder.Services.Configure<AppSetting>(builder.Configuration.GetSection("AppSettings"));

@@ -3,16 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPI.entities
 {
-    [Table("Category")]
-    public class Category
+    [Table("Role")]
+    public class Role
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
-        [MaxLength(50)]
         public string Name { get; set; }
-
-
-        //public virtual ICollection<Product> Products { get; set; }
     }
 }

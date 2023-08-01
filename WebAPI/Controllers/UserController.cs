@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Validate(LoginModel model)
         {
-            var user = _context.Users.SingleOrDefault( u => u.username == model.username && u.password == model.password);
+            var user = _context.Users.SingleOrDefault( u => u.Username == model.username && u.Password == model.password);
             if (user == null) 
             {
                 return Ok(new
@@ -56,11 +56,11 @@ namespace WebAPI.Controllers
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, user.fullname),
-                    new Claim(JwtRegisteredClaimNames.Email, user.email),
-                    new Claim(JwtRegisteredClaimNames.Sub, user.email),
+                    new Claim(ClaimTypes.Name, user.Fullname),
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim("username",user.username),
+                    new Claim("Username",user.Username),
                     new Claim("Id",user.Id.ToString()),
 
                     //roles
@@ -234,7 +234,6 @@ namespace WebAPI.Controllers
         {
             var dateTimeInterval = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             dateTimeInterval.AddSeconds(utcExpireDate).ToUniversalTime();
-
             return dateTimeInterval;
         }
     }

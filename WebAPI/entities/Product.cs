@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPI.entities
@@ -7,28 +8,31 @@ namespace WebAPI.entities
     public class Product
     {
         [Key]
-        public Guid id { get; set; }
+        public Guid Id { get; set; }        
 
         [Required]
         [MaxLength(100)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public string description { get; set; }
+        public string Description { get; set; }
 
         [Range(0, double.MaxValue)]
-        public double price { get; set; }
+        public double Price { get; set; }
 
-        public byte discount { get; set; }
+        public byte Discount { get; set; }
 
-        public int? category_id { get; set; }
-        [ForeignKey("category_id")]
-        public Category category { get; set; }
+        public int? CategoryId { get; set; }
+        [ForeignKey(nameof(CategoryId))]
+        public Category Category { get; set; }
 
-        public ICollection<OrderDetail> OrderDetails { set; get; }
         public Product()
         {
-            OrderDetails = new HashSet<OrderDetail>();
+            // Khởi tạo Category trong hàm khởi tạo
+            Category = new Category();
         }
-
+        public string GetCategoryName()
+        {
+            return Category.Name;
+        }
     }
 }

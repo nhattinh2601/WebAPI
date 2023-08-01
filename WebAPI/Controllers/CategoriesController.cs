@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MyWebApiApp.dataAccess;
-using WebAPI.entities;
 using WebAPI.dtos;
+using WebAPI.repositories;
 
 namespace WebAPI.Controllers
 {
@@ -11,106 +9,87 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly MyDbContext _context;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CategoriesController(MyDbContext context)
+        public CategoriesController(ICategoryRepository categoryRepository)
         {
-            _context = context;
+            _categoryRepository = categoryRepository;
         }
-        
 
-        #region GetAll
+
         [HttpGet]
         public IActionResult GetAll()
         {
             try
             {
-                var dsLoai = _context.Categories.ToList();
-                return Ok(dsLoai);
+                var categories = _categoryRepository.GetAll();
+                return Ok(categories);
             }
-            catch
+            catch 
             {
-                return BadRequest();
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
-        #endregion
 
-
-        #region GetById
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var loai = _context.Categories.SingleOrDefault(lo => lo.category_id == id);
-            if (loai != null)
-            {
-                return Ok(loai);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-        #endregion
-
-
-        #region Detele
-        [HttpDelete("{id}")]
-        public IActionResult DeleteById(int id)
-        {
-            var loai = _context.Categories.SingleOrDefault(lo => lo.category_id == id);
-            if (loai != null)
-            {
-                _context.Categories.Remove(loai);
-                _context.SaveChanges();
-                return StatusCode(StatusCodes.Status200OK);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-        #endregion
-        
-
-        #region Create
-        [HttpPost]
-        [Authorize]
-        public IActionResult CreateNew(CategoryModel model)
-        {
             try
             {
-                var loai = new Category
+                var category = _categoryRepository.GetById(id);
+                if(category != null)
                 {
-                    name = model.name
-                };
-                _context.Add(loai);
-                _context.SaveChanges();
-                return Ok(loai);
+                    return Ok(category);
+                }else { return BadRequest(); }
             }
             catch
             {
-                return BadRequest();
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
-        #endregion
 
 
-        #region Update
-        [HttpPut("{id}")]
-        public IActionResult UpdateLoaiById(int id, CategoryModel model)
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
-            var loai = _context.Categories.SingleOrDefault(lo => lo.category_id == id);
-            if (loai != null)
+            try
             {
-                loai.name = model.name;
-                _context.SaveChanges();
+                _categoryRepository.Delete(id);
+                return Ok();
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        
+        [HttpPost]
+        public IActionResult Add(CategoryModel category)
+        {
+            try
+            {
+                return Ok(_categoryRepository.Add(category));
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult Update(CategoryVM loai)
+        {            
+            try
+            {
+                _categoryRepository.Update(loai);
                 return NoContent();
             }
-            else
+            catch
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
-        }
-        #endregion
+        }        
     }
 }
