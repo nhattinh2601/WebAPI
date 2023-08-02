@@ -8,6 +8,6 @@ namespace WebAPI.repositories
         CategoryVM GetById(int id);
         CategoryVM Add(CategoryModel loai);
         void Update(CategoryVM loai);
-        void Delete(int id);
+        void Delete(int id);        
     }
 }
