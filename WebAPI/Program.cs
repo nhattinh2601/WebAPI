@@ -7,6 +7,7 @@ using WebAPI.helpers;
 using WebAPI.repositories.impl;
 using WebAPI.repositories;
 using MyWebApiApp.dataAccess;
+using WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,31 +63,12 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-builder.Services.AddScoped<ICategoryRepository, CategoryRepositoryImpl>();
-builder.Services.AddScoped<IProductRepository, ProductRepositoryImpl>();
-builder.Services.AddScoped<IRoleRepository, RoleRepositoryImpl>();
 
-
-/*Config Jwt*/
+ServiceConfiguration.RegisterDI(builder.Services);
 builder.Services.Configure<AppSetting>(builder.Configuration.GetSection("AppSettings"));
-var secretKey = builder.Configuration["AppSettings:SecretKey"];
-var secretKeyBytes = Encoding.UTF8.GetBytes(secretKey);
+ServiceConfiguration.ConfigureAuthentication(builder.Services, builder.Configuration);
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
-{
-    opt.TokenValidationParameters = new TokenValidationParameters
-    {
-        //tự cấp token
-        ValidateIssuer = false,
-        ValidateAudience = false,
 
-        //ký vào token
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(secretKeyBytes),
-
-        ClockSkew = TimeSpan.Zero
-    };
-});
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
